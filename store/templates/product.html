@@ -18,29 +18,60 @@
         <h5 class="card-title">{{ product.name }}</h5>
         <br/>
         <p class="card-text justified">{{ product.description }}</p>
-        
-        {% if product.is_sale %}
+
+        {% if product.is_onsale %}
+
         <div class="d-flex justify-content-center small text-warning mb-2">
-                <div class="bi-star-fill"></div>
-                &nbsp;&nbsp;Sale!&nbsp;&nbsp;
-                <div class="bi-star-fill"></div>
-                </div>
-
-                <!-- Product price-->
-                <strike>
-                {{ product.price }}
-                </strike>
-                &nbsp;
-                {{ product.sale_price }}
-
+          <div class="bi-star-fill"></div>
+          &nbsp;&nbsp;IS ON SALE!&nbsp;&nbsp;
+          <div class="bi-star-fill"></div>
+         </div>
+         Price :&nbsp;<strike>
+         {{product.price}}
+      </strike>
+      &nbsp; &nbsp;
+      {{product.sale_price}} 
+    <br/><br/>
+    PRODUCT-ID :{{product.id}}
+      
 
 
         {% else %}
-            {{ product.price }}<br/>
 
-            ID:{{ product.id }}
-            
+         Price : {{ product.price }}
+
+         <br/><br/>
+
+         PRODUCT-ID :{{product.id}}
+
+
+
+
         {% endif %}
+
+        <br/><br/>
+
+        <div class='row justify-content-center'>
+          <div class="col-md-2">Quantity:</div>
+
+        <div class='col-md-2'>  
+
+        <select class="form-select " id="qty-cart">
+         
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>  
+        
+      </div>
+    </div>
+
+
+        
+        
             <br/><br/>
 
             <br/><br/>
@@ -53,6 +84,7 @@
   </div>
 </div>
 </div>
+
         	
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -70,12 +102,14 @@ $(document).on('click', '#add-cart', function(e){
     url : '{% url 'cart_add' %}',
     data : {
         product_id : $('#add-cart').val(),
+        product_qty : $('#qty-cart option:selected').text(),
         csrfmiddlewaretoken : '{{ csrf_token }}',
         action :'post'
     },
 
     success : function(json){
-      console.log(json)
+      //console.log(json)
+      document.getElementById("card_quantity").textContent = json.qty
     },
     error : function(xhr, errmsg, err){
 
