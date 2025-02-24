@@ -9,6 +9,11 @@ from django import forms
 from .forms import SignUpForm,UserUpdateForm,ChangePasswordForm,UserInfoForm
 from .models import Product, Category, Profile
 from django.db.models import Q
+import json
+from cart.cart import Cart
+
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 
 
 
@@ -83,6 +88,37 @@ def login_user(request):
         user = authenticate (request, username=username, password=password)
         if user is not None:
             login(request, user)
+
+            #let's do sime shopping cart stuff
+            current_user = Profile.objects.get(user__id=request.user.id)
+
+            #get the cart from the database
+
+            saved_cart = current_user.old_cart
+
+            #convert the string cart to dictionary
+
+            if saved_cart:
+                # covert the string cart to dictionary using Json
+
+                converted_cart = json.loads(saved_cart)
+
+                #add our loaded cart to the sesion
+
+                #get the cart
+
+                cart = Cart(request)
+
+                #loop through the cart and add dictionary items to the database
+
+                for key,value in converted_cart.items():
+                    cart.db_add(product=key, quantity=value)
+
+
+
+
+
+
             messages.success(request, ("You Have Been Succesfully Logged In ..!"))
             return redirect('home')
         else:
@@ -91,6 +127,9 @@ def login_user(request):
     else:
            
         return render(request,"login.html")
+    
+
+    
 
 def logout_user(request):
     logout(request)
@@ -169,16 +208,32 @@ def update_password(request):
 
 def update_info(request):
     if request.user.is_authenticated:
+        #get current user
         current_user= Profile.objects.get(user__id=request.user.id)
+        #get current user address
+        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+
+        #get original from
         form=UserInfoForm(request.POST or None, instance=current_user)
+
+        #get user shipping form
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+
+
         
-        if form.is_valid():
+        if form.is_valid() or shipping_form.is_valid():
+
+            #saving original form
             form.save()
+
+            #saving shipping form
+            shipping_form.save()
+
 
             messages.success(request,"User Info Has Been Updated Successfully !!!..")
 
             return redirect('home')
-        return render(request,"update_info.html",{'form':form})
+        return render(request,"update_info.html",{'form':form, 'shipping_form':shipping_form})
     else:
         messages.success(request,"You Need To Be Logged In To Access This Page")
         return redirect('home')
