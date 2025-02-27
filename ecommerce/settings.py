@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1"
 ]
+CSRF_TRUSTED_ORIGINS = ["https://ecommerce-website-using-django-o4x7.onrender.com"]
 
 
 # Application definition
