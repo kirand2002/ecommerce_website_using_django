@@ -32,13 +32,9 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['ecommercewebsiteusingdjango-production-a201.up.railway.app','https://ecommercewebsiteusingdjango-production-a201.up.railway.app']
 # CSRF_TRUSTED_ORIGINS = ['ecommercewebsiteusingdjango-production-a201.up.railway.app','https://ecommercewebsiteusingdjango-production-a201.up.railway.app']
-ALLOWED_HOSTS = [
-    "ecommerce-website-using-django-1.onrender.com",  
-    "localhost",  
-    "127.0.0.1"
-]
+ALLOWED_HOSTS =["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://ecommerce-website-using-django-1.onrender.com"]
+# CSRF_TRUSTED_ORIGINS = ["https://ecommerce-website-using-django-1.onrender.com"]
 
 
 # Application definition
