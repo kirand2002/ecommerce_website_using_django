@@ -41,7 +41,10 @@ ALLOWED_HOSTS = [
     "localhost"
 ]
 
-# CSRF_TRUSTED_ORIGINS = ["https://ecommerce-website-using-django-1.onrender.com"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://ecommerce-website-using-django-2.onrender.com"
+]
+
 
 
 # Application definition
