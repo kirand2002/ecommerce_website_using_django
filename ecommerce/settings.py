@@ -93,14 +93,14 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 
 DATABASES = {
     "default": {
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "defaultdb" ,
-        "USER" : "avnadmin" ,
-        "PASSWORD" : os.environ.get('DB_PASSWORD_ME') ,
-        "HOST" : "kiran-kirandhanushraju-9a5c.f.aivencloud.com" ,
-        "PORT" : "26224" ,
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.postgresql",
+        # "NAME": "defaultdb" ,
+        # "USER" : "avnadmin" ,
+        # "PASSWORD" : os.environ.get('DB_PASSWORD_ME') ,
+        # "HOST" : "kiran-kirandhanushraju-9a5c.f.aivencloud.com" ,
+        # "PORT" : "26224" ,
     }
 }
 
