@@ -99,11 +99,11 @@ DATABASES = {
     "default": {
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "defaultdb" ,
         "USER" : "avnadmin" ,
         "PASSWORD" : os.environ.get('DB_PASSWORD_ME') ,
-        "HOST" : "kiran-kirandhanushraju-9a5c.f.aivencloud.com" ,
+        "HOST" : "mysql-3582a32c-kirandhanushraju-9a5c.i.aivencloud.com" ,
         "PORT" : "26224" ,
     }
 }
